@@ -1,40 +1,51 @@
-# What's sumpdf ?
-[Ollama](https://ollama.com/)を利用したローカルLLMによるファイル要約アプリです。
-デフォルトではLlama 3.1を利用するため、**Setupに4.7GBのダウンロードが発生する**ことに注意してください。
+# What's AnyFileSummarizer ?
 
+This is a file summarization application with local LLM using [Ollama](https://ollama.com/).  
+Note that the default is to use Llama 3.1, which **will result in a 4.7 GB download for Setup**.
 
 # How to use
 
-## Setup
-```
-git clone [hoge]
-cd pdfSummarize
+## Ollama setup
+### macOS
 
+`````````
 brew install ollama
 ollama pull llama3.1
+`````````
+
+### Linux
+
+`````````
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3.1
+`````````
+
+## Common Setup
+
+```
+git clone https://github.com/LemniscaterN/AnyfileSummarizer.git
+cd AnyfileSummarizer
 
 python -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
-echo -e "\nsumpdf() {`pwd`/venv/bin/python `pwd`/main.py \"\$@\"; }" >> ~/.zshrc
+echo -e "\nafsum() {`pwd`/venv/bin/python `pwd`/main.py \"\$@\"; }" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-## Summarize PDF
+## Samples
+### Summarize PDF
 ```
-sumpdf -pdf ./hoge/huge.pdf
-```
-
-## Summarize word
-```
-sumpdf - ./hoge/huge.pdf
+afsum -pdf ./hoge/huge.pdf
 ```
 
+### Summarize word
+```
+afsum -doc ./hoge/huge.doc
+```
 
-
-
-# For Mac User
-1. ./setup.sh
-
-# For Linux
+### Summarize pptx
+```
+afsum -ptx ./hoge/huge.ptx
+```
