@@ -2,6 +2,8 @@ import argparse
 import os
 import subprocess
 
+MODEL_NAME = "llama3.1"
+
 def extract_text_from_pdf(pdf_path):
     import fitz
     document = fitz.open(pdf_path)
@@ -39,8 +41,8 @@ elif args.ptx and os.path.exists(args.ptx):
                 target_text += shape.text_frame.text
         if(len(target_text)>1000):
             target_text = re.sub(r'\s+', ' ',target_text).replace("\t", " ").replace("\n", " ")
-            target_text = subprocess.run(['ollama', 'run', 'elyza:jp8b',f'Summarize please. # {filename}{target_text}'],capture_output=True, text=True).stdout
+            target_text = subprocess.run(['ollama', 'run', MODEL_NAME,f'Summarize please. # {filename}{target_text}'],capture_output=True, text=True).stdout
     target_text = re.sub(r'\s+', ' ',target_text).replace("\t", " ").replace("\n", " ")
 
 if(target_text != ""):
-    print(f"要約結果：\n{subprocess.run(['ollama', 'run', 'elyza:jp8b',f'Summarize please. # {target_text}'],capture_output=True, text=True).stdout}")
+    print(f"Summarized results：\n{subprocess.run(['ollama', 'run', MODEL_NAME,f'Summarize please. # {target_text}'],capture_output=True, text=True).stdout}")
